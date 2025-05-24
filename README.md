@@ -112,6 +112,58 @@ All fields are required, and the email field includes validation to ensure a val
 - Mobile-friendly layout
 - Consistent styling across all pages
 
+## Debugging in VS Code
+
+This project is configured for debugging with Xdebug in Visual Studio Code.
+
+### Prerequisites
+- VS Code with PHP Debug extension
+- Xdebug installed and configured
+- PHP 8.1 or higher
+
+### Debug Configuration
+The project includes a `.vscode/launch.json` with three debug configurations:
+
+1. **Launch Built-in web server**
+   - Starts PHP's built-in server with Xdebug enabled
+   - Opens browser automatically
+   - Use for debugging the web application
+
+2. **Listen for Xdebug**
+   - For debugging with an external web server
+   - Useful when using Symfony CLI or Apache/Nginx
+
+3. **Symfony Console**
+   - Debug Symfony console commands
+   - Useful for debugging migrations, cache clearing, etc.
+
+### How to Debug
+1. Set breakpoints in your PHP files by clicking the line number gutter
+2. Press F5 or select "Run and Debug" in VS Code
+3. Choose "Launch Built-in web server"
+4. Wait for your browser to open automatically
+5. Navigate to http://localhost:8000/post
+
+### Available Debug Actions
+- Continue (F5)
+- Step Over (F10)
+- Step Into (F11)
+- Step Out (Shift+F11)
+- Restart (Ctrl+Shift+F5)
+- Stop (Shift+F5)
+
+### Debug Environment Variables
+```env
+APP_ENV=dev
+APP_DEBUG=1
+```
+
+### Troubleshooting
+If breakpoints are not hitting:
+1. Ensure Xdebug is properly installed: `php -v` should show Xdebug
+2. Check VS Code is listening on port 9003
+3. Verify launch.json configuration paths match your project structure
+
 ## Contributing
 Feel free to fork this repository and submit pull requests. You can also open issues for bugs or feature requests.
 

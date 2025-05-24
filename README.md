@@ -1,4 +1,4 @@
-![alt text](https://github.com/adavidoaiei/Symfony-Framework/blob/main/img.png?raw=true)
+
 # Symfony Framework Blog CRUD Application
 
 A modern blog management system built with Symfony 6.3 PHP framework, featuring a complete CRUD interface for managing posts. This application demonstrates Symfony best practices, form handling, database operations with Doctrine ORM, and responsive UI with Bootstrap 5.

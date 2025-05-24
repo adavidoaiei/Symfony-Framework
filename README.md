@@ -61,7 +61,7 @@ A modern blog management system built with Symfony 6.3 PHP framework, featuring 
 ## Project Structure
 
 ```
-Symphony/
+Symfony-Framework/
 ├── src/
 │   ├── Controller/
 │   │   └── PostController.php    # CRUD operations

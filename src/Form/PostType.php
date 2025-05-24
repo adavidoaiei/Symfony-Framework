@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Post;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -20,6 +21,10 @@ class PostType extends AbstractType
             ])
             ->add('content', TextareaType::class, [
                 'attr' => ['class' => 'form-control mb-3', 'rows' => 5],
+                'label_attr' => ['class' => 'form-label']
+            ])
+            ->add('email', EmailType::class, [
+                'attr' => ['class' => 'form-control mb-3'],
                 'label_attr' => ['class' => 'form-label']
             ])
         ;

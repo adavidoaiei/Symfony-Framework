@@ -1,6 +1,6 @@
 
 {% block body %}
-    <div style="margin: 10px">
+    <div class="container py-4">
         <h1>{{ post.id ? 'Edit Post' : 'Create New Post' }}</h1>
 
         {{ form_start(form, {'attr': {'class': 'mb-3'}}) }}

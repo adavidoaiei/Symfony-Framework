@@ -1,13 +1,12 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}{{ post.id ? 'Edit Post' : 'New Post' }}{% endblock %}
 
 {% block body %}
-    <h1>{{ post.id ? 'Edit Post' : 'Create New Post' }}</h1>
+    <div style="margin: 10px">
+        <h1>{{ post.id ? 'Edit Post' : 'Create New Post' }}</h1>
 
-    {{ form_start(form, {'attr': {'class': 'mb-3'}}) }}
-        {{ form_widget(form) }}
-        <button type="submit" class="btn btn-primary">{{ post.id ? 'Update' : 'Create' }}</button>
-        <a href="{{ path('app_post_index') }}" class="btn btn-secondary">Back to List</a>
-    {{ form_end(form) }}
+        {{ form_start(form, {'attr': {'class': 'mb-3'}}) }}
+            {{ form_widget(form) }}
+            <button type="submit" class="btn btn-primary">{{ post.id ? 'Update' : 'Create' }}</button>
+            <a href="{{ path('app_post_index') }}" class="btn btn-secondary">Back to List</a>
+        {{ form_end(form) }}
+    </div>
 {% endblock %}

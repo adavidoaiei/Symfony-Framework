@@ -24,8 +24,8 @@ A modern blog management system built with Symfony 6.3 PHP framework, featuring 
 
 1. **Clone the repository:**
    ```bash
-   git clone <repository-url>
-   cd Symphony
+   git clone https://github.com/adavidoaiei/Symfony-Framework.git
+   cd Symfony-Framework
    ```
 
 2. **Install PHP dependencies:**

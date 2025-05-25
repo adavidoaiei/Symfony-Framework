@@ -164,11 +164,110 @@ If breakpoints are not hitting:
 2. Check VS Code is listening on port 9003
 3. Verify launch.json configuration paths match your project structure
 
-## Contributing
-Feel free to fork this repository and submit pull requests. You can also open issues for bugs or feature requests.
+## Deployment
 
-## License
-This project is open-source and available for educational purposes. Feel free to use it as a reference for learning Symfony development.
+### Prerequisites
+- Web server (Apache2/Nginx)
+- PHP 8.1 or higher
+- Composer
+- SQLite3 (or your preferred database)
 
-## Created
-May 24, 2025
+### Deployment Steps
+
+1. **Clone the repository on your server:**
+   ```bash
+   git clone https://github.com/adavidoaiei/Symfony-Framework.git
+   cd Symfony-Framework
+   ```
+
+2. **Set up production environment:**
+   ```bash
+   cp .env.prod .env.local
+   # Edit .env.local with your production settings if needed
+   ```
+
+3. **Run the deployment script:**
+   ```bash
+   chmod +x deploy.sh
+   ./deploy.sh
+   ```
+
+### Web Server Configuration
+
+#### Apache2
+Create a new virtual host in `/etc/apache2/sites-available/symfony.conf`:
+```apache
+<VirtualHost *:80>
+    ServerName your-domain.com
+    DocumentRoot /path/to/symfony/public
+
+    <Directory /path/to/symfony/public>
+        AllowOverride All
+        Order Allow,Deny
+        Allow from All
+        Require all granted
+
+        FallbackResource /index.php
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/symfony_error.log
+    CustomLog ${APACHE_LOG_DIR}/symfony_access.log combined
+</VirtualHost>
+```
+
+Enable the site:
+```bash
+sudo a2ensite symfony.conf
+sudo systemctl reload apache2
+```
+
+#### Nginx
+Create a new server block in `/etc/nginx/sites-available/symfony`:
+```nginx
+server {
+    listen 80;
+    server_name your-domain.com;
+    root /path/to/symfony/public;
+
+    location / {
+        try_files $uri /index.php$is_args$args;
+    }
+
+    location ~ ^/index\\.php(/|$) {
+        fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;
+        fastcgi_split_path_info ^(.+\\.php)(/.*)$;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        fastcgi_param DOCUMENT_ROOT $realpath_root;
+        internal;
+    }
+
+    location ~ \\.php$ {
+        return 404;
+    }
+
+    error_log /var/log/nginx/symfony_error.log;
+    access_log /var/log/nginx/symfony_access.log;
+}
+```
+
+Enable the site:
+```bash
+sudo ln -s /etc/nginx/sites-available/symfony /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl reload nginx
+```
+
+### Post-Deployment Verification
+1. Visit your domain to ensure the application loads
+2. Check the logs in `var/log/` for any errors
+3. Test all CRUD operations
+4. Verify database migrations were successful
+5. Check file permissions on var/ directory
+
+### Troubleshooting
+- If you see a blank page, check your PHP error logs
+- If you get a 500 error, check var/log/prod.log
+- For database issues, verify DATABASE_URL in .env.local
+- For permission issues, ensure var/ directory is writable
+````
